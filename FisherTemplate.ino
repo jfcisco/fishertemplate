@@ -1,5 +1,5 @@
 /**
- * FisherNet Program Template v1.0
+ * FisherNet Program Template v2.0
  * 
  * Standard template to make programming 
  * easier for everyone.

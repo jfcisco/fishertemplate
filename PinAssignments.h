@@ -12,11 +12,11 @@
   #define LORA_SERIAL_CLOCK 18
   #define LORA_COPI 23
   #define LORA_CIPO 19
-  #define BTN_1 32
+  #define BTN_1 13
   #define BTN_2 33
-  #define BTN_3 35
-  #define BTN_4 36
-  #define BTN_5 39
+  #define BTN_3 25
+  #define BTN_4 26
+  #define BTN_5 27
 #endif
 
 #ifdef LILYGO
@@ -28,11 +28,11 @@
   #define LORA_RESET 23
   #define LORA_CHIP_SELECT 18
   #define LORA_SERIAL_CLOCK 5
-  #define LORA_COPI 19
-  #define LORA_CIPO 27
-  #define BTN_1 32
-  #define BTN_2 33
-  #define BTN_3 35
-  #define BTN_4 36
-  #define BTN_5 39
+  #define LORA_COPI 27
+  #define LORA_CIPO 19
+  #define BTN_1 2
+  #define BTN_2 13
+  #define BTN_3 14
+  #define BTN_4 25
+  #define BTN_5 15
 #endif

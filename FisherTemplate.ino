@@ -28,11 +28,11 @@
 #include "FisherMesh.h"
 
 // Setup a new OneButton pins
-OneButton blue(BTN_1, true);
-OneButton green(BTN_2, true);
-OneButton red(BTN_3, true);
-OneButton pink(BTN_4, true);
-OneButton yellow(BTN_5, true);
+OneButton button1(BTN_1, true);
+OneButton button2(BTN_2, true);
+OneButton button3(BTN_3, true);
+OneButton button4(BTN_4, true);
+OneButton button5(BTN_5, true);
 
 // Setup OLED
 #define SCREEN_WIDTH 128
@@ -55,11 +55,19 @@ FisherMesh mesh(NODE_ADDRESS, LORA_FREQUENCY);
 void setup() {
   Serial.begin(115200);
   setupOled();
+  setupGps();
+  if (!mesh.init()) {
+    Serial.println(F("Failed to initialize mesh network"));
+    oled.println(F("Failed to initialize mesh network"));
+    oled.display();
+    while (true);
+  }
   // Add your program's setup code below:
   
 }
 
 void loop() {
+  updateButtons();
   updateGps();
   // Add your program's loop code below:
   
@@ -76,8 +84,21 @@ void setupOled() {
   }
 }
 
+// Setup GPS serial connection
+void setupGps() {
+  gpsSerial.begin(9600);
+}
+
 // Updates gps with data from the module
 void updateGps() {
   while (gpsSerial.available() > 0)
     gps.encode(gpsSerial.read());
+}
+
+void updateButtons() {
+  button1.tick();
+  button2.tick();
+  button3.tick();
+  button4.tick();
+  button5.tick();
 }

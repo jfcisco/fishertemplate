@@ -134,13 +134,6 @@ class FisherMesh {
     
     // Listens to distress signals  
     bool listenForDistressSignal() {
-      // TODO: Pakikulit si Jasper to finish writing this
-      return false;
-    };
-    
-    // Listens for distress response signals  
-    // Returns true if a distress response signal was received
-    bool listenForDistressResponse() {
       uint8_t len = sizeof(_buffer);
       uint8_t from;
       
@@ -160,6 +153,29 @@ class FisherMesh {
       }
       return false;
     };
+    
+    // Listens for distress response signals  
+    // Returns true if a distress response signal was received
+    bool listenForDistressResponse() {
+      uint8_t len = sizeof(_buffer);
+      uint8_t from;
+      
+      if (_manager.recvfromAck(_buffer, &len, &from))
+      {
+        // We can do this because both types of signals 
+        // (i.e. DistressResponse and DistressSignal) have a DistressHeader.
+        DistressHeader *header = (DistressHeader *)_buffer;
+        
+        if (len > 1 && header->msgType == DISTRESS_SIGNAL) {
+          // Cast the response into the struct
+          DistressSignal *distressSignal = (DistressSignal *)header;
+          _distressSignal = *distressSignal;
+        }
+
+        return true;
+      }
+      return false;
+    };
 
     uint8_t getAddress() {
       return _address;
@@ -168,6 +184,10 @@ class FisherMesh {
     DistressResponse getResponse() {
       return _distressResponse;
     };
+
+    DistressSignal getLastDistressSignal() {
+      return _distressSignal;
+    }
 
   private:
     uint8_t _address;
